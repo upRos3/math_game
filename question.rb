@@ -1,12 +1,14 @@
 class Question
   attr_reader :answer
   def initialize
+    operator = %i[+ - * /]
+    @returned_operator = operator.sample
     @first = rand(1...20)
     @second = rand(1...20)
-    @answer = @first + @second
+    @answer = @first.public_send(@returned_operator, @second)
   end
 
   def get
-    return "What is #{@first} + #{@second}?"
+    "What is #{@first} #{@returned_operator} #{@second}?"
   end
 end
