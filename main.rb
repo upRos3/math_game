@@ -1,8 +1,6 @@
 require './game'
-require './question'
-require './player'
 
-new_game = Game.new
+game = Math_Game::Game.new
 
-new_game.introduction
-new_game.game_start
+game.introduction
+game.game_start

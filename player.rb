@@ -1,7 +1,9 @@
-class Player
-  attr_accessor :name, :lives
-  def initialize(name)
-    @name = name
-    @lives = 2
+module Math_Game
+  class Player
+    attr_accessor :name, :lives
+    def initialize(name)
+      @name = name
+      @lives = 2
+    end
   end
 end
