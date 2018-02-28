@@ -20,17 +20,37 @@ class Game
     print '> '
     @players[1].name = gets.chomp
 
-    puts 'Game commencing!'
+    puts "\nRules of the game:"
+    puts 'You start with 3 lives, get one wrong, you lose a life!'
+    puts "Lose all your lives and it's game over!"
+
+    ready = false
+
+    until ready
+
+      puts "\nType 'start' to start game:"
+      print '> '
+
+      confirm = gets.chomp.downcase
+
+      if confirm != 'start'
+        puts "\nObviously you're not ready yet\n"
+      else
+        puts "\nGame commencing!\n"
+        ready = true
+      end
+    end
   end
 
   def game_start
     game_over = false
     counter = 0
-    new_line = "\n"
 
     until game_over
+      current_player = @players[counter].name
+      lives = @players[counter].lives
 
-      puts new_line + "Question for #{@players[counter].name}:"
+      puts "\nQuestion for #{current_player}:"
 
       question = Question.new
       puts question.get
@@ -39,25 +59,20 @@ class Game
       returned_answer = gets.chomp.to_i
 
       if question.answer == returned_answer
-        puts new_line + 'Correct! You so smaaaht' + new_line
+        puts "\nCorrect!\n"
       else
-        puts new_line + 'You St00pid -1 point' + new_line
         @players[counter].lives -= 1
+        if lives < 0
+          puts "\n#{current_player} is really bad at math! GAME OVER!"
+        else
+          puts "\nWRONG! -1 life :(\n"
+          puts "#{current_player} has #{lives} lives left"
+        end
       end
 
-      game_over = @players[0].lives == 0 || @players[1].lives == 0
+      game_over = lives < 0
 
       counter = counter == 0 ? 1 : 0
-    end
-
-    if game_over
-      if @players[0].lives == 0
-        puts new_line + "#{@players[1].name} wins!" + new_line
-      end
-
-      if @players[1].lives == 0
-        puts new_line + "#{@players[0].name} wins!" + new_line
-      end
     end
   end
 end

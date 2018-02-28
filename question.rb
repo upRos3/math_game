@@ -1,7 +1,7 @@
 class Question
   attr_reader :answer
   def initialize
-    operator = %i[+ - * /]
+    operator = %i[+ - *]
     @returned_operator = operator.sample
     @first = rand(1...20)
     @second = rand(1...20)
