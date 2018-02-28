@@ -56,17 +56,23 @@ class Game
       puts question.get
 
       print '> '
-      returned_answer = gets.chomp.to_i
+      returned_answer = gets.chomp
 
-      if question.answer == returned_answer
-        puts "\nCorrect!\n"
-      else
+      if returned_answer =~ /([A-z])\w+/
+        puts "That's not a number! -1 life for wasting time!"
         @players[counter].lives -= 1
-        if lives < 0
-          puts "\n#{current_player} is really bad at math! GAME OVER!"
+      else
+        returned_answer.to_i
+        if question.answer == returned_answer
+          puts "\nCorrect!\n"
         else
-          puts "\nWRONG! -1 life :(\n"
-          puts "#{current_player} has #{lives} lives left"
+          @players[counter].lives -= 1
+          if lives < 0
+            puts "\n#{current_player} is really bad at math! GAME OVER!"
+          else
+            puts "\nWRONG! -1 life :(\n"
+            puts "#{current_player} has #{lives} lives left"
+          end
         end
       end
 
